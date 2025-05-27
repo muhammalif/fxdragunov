@@ -10,7 +10,30 @@ const articleRoutes = require('./src/routes/articleRoutes');
 const adminRoutes = require('./src/routes/adminRoutes');
 
 const app = express();
-app.use(cors());
+
+// Configure CORS to allow specific origins
+const allowedOrigins = [
+  'http://localhost:8080', // Allow local development
+  'http://localhost:8081',
+  process.env.LANDING_PAGE_URL, // Vercel domain for landing page
+  process.env.ADMIN_URL // Vercel domain for admin dashboard
+].filter(Boolean); // Filter out any undefined/null values
+
+const corsOptions = {
+  origin: function (origin, callback) {
+    // allow requests with no origin 
+    // (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  },
+  credentials: true,
+};
+
+app.use(cors(corsOptions));
 app.use(express.json());
 
 // Check folder upload
