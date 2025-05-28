@@ -8,7 +8,7 @@ const {
 } = require('../controllers/articleController');
 const authMiddleware = require('../middleware/authMiddleware');
 const multer = require('multer');
-const upload = multer({ dest: './uploads/images' });
+const upload = multer({ storage: multer.memoryStorage() });
 
 const router = express.Router();
 
