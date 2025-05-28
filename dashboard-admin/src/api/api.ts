@@ -20,7 +20,9 @@ export interface LoginData {
 }
 
 export const adminLogin = async (credentials: LoginData): Promise<LoginResponse> => {
-  const response = await axios.post(`${API_BASE_URL}/admin/login`, credentials);
+  const url = `${API_BASE_URL}/admin/login`;
+  console.log('API Login URL:', url);
+  const response = await axios.post(url, credentials);
   return response.data;
 };
 
