@@ -54,7 +54,9 @@ app.use(express.json()); // For parsing application/json
 // app.use('/api/protected', authMiddleware, protectedRoutes);
 
 // Mount your route handlers
+console.log('Mounting article routes at /api/articles');
 app.use('/api/articles', articleRoutes);
+console.log('Mounting admin routes at /api/admin');
 app.use('/api/admin', authMiddleware, adminRoutes);
 // Add all your specific API routes here
 app.get('/', (req, res) => {
