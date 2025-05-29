@@ -28,8 +28,6 @@ const connectDB = async () => {
 
 const app = express();
 
-console.log('Received request. Method:', req.method, 'Origin:', req.headers.origin);
-
 // Add your middleware
 const allowedOrigins = [
   'https://fxdragunov-admin.vercel.app',
@@ -66,6 +64,8 @@ app.get('/', (req, res) => {
 // Export the Vercel serverless handler function
 // This function will be executed for each incoming request
 module.exports = async (req, res) => {
+  console.log('Received request. Method:', req.method, 'Origin:', req.headers.origin);
+
   // Ensure DB connection before handling request
   await connectDB();
 
