@@ -73,6 +73,3 @@ module.exports = async (req, res) => {
   // This approach works because Vercel's Node.js runtime provides compatible req/res objects
   app(req, res);
 };
-
-console.log('Before exporting serverless handler');
-console.log('After exporting serverless handler');
