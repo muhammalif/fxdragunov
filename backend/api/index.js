@@ -29,7 +29,25 @@ const connectDB = async () => {
 const app = express();
 
 // Add your middleware
-app.use(cors({ origin: process.env.CORS_ORIGIN })); // Ensure CORS_ORIGIN env var is set
+const allowedOrigins = [
+  'https://fxdragunov-admin.vercel.app',
+  'https://fxdragunov.vercel.app',
+  'http://localhost:8080', // Local
+  'http://localhost:8081', // Local
+];
+
+app.use(cors({
+  origin: function (origin, callback) {
+    // allow requests with no origin 
+    // (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) === -1) {
+      const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
+      return callback(new Error(msg), false);
+    }
+    return callback(null, true);
+  }
+}));
 app.use(express.json()); // For parsing application/json
 // If you have other middleware (e.g., urlencoded, cookie-parser, etc.), add them here
 // Example of using authMiddleware for protected routes:
