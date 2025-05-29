@@ -1,12 +1,10 @@
-// This is a minimal Vercel Serverless Function handler for diagnosis
-
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose'); // Assuming you are using Mongoose
 // Import your route handlers and middleware here
-const articleRoutes = require('./src/routes/articleRoutes');
-const adminRoutes = require('./src/routes/adminRoutes');
-const authMiddleware = require('./src/middleware/authMiddleware');
+const articleRoutes = require('../src/routes/articleRoutes');
+const adminRoutes = require('../src/routes/adminRoutes');
+const authMiddleware = require('../src/middleware/authMiddleware');
 
 // Database connection setup (adapting for serverless)
 const connectDB = async () => {
