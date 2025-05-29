@@ -28,6 +28,8 @@ const connectDB = async () => {
 
 const app = express();
 
+console.log('Received request. Method:', req.method, 'Origin:', req.headers.origin);
+
 // Add your middleware
 const allowedOrigins = [
   'https://fxdragunov-admin.vercel.app',
