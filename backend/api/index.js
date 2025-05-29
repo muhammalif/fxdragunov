@@ -2,9 +2,6 @@ const express = require('express');
 const serverless = require('serverless-http');
 const mongoose = require('mongoose');
 const cors = require('cors');
-const path = require('path');
-const fs = require('fs');
-const multer = require('multer');
 require('dotenv').config();
 
 const articleRoutes = require('../src/routes/articleRoutes');
@@ -36,34 +33,9 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-// Uploads
-const uploadDir = path.join(__dirname, '../../uploads/images'); // ⬅️ Perbaiki path relatif
-if (!fs.existsSync(uploadDir)) {
-  fs.mkdirSync(uploadDir, { recursive: true });
-  console.log('Upload directory created:', uploadDir);
-}
+// Uploads - Removed local file system logic
 
-const storage = multer.diskStorage({
-  destination: uploadDir,
-  filename: (req, file, cb) => {
-    const filename = `${Date.now()}_${file.originalname}`;
-    cb(null, filename);
-  },
-});
-
-const upload = multer({
-  storage,
-  limits: { fileSize: 1000000 },
-  fileFilter: (req, file, cb) => {
-    const filetypes = /jpeg|jpg|png|gif/;
-    const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
-    const mimetype = filetypes.test(file.mimetype);
-    if (mimetype && extname) cb(null, true);
-    else cb('Error: Images Only!');
-  },
-});
-
-app.use('/uploads', express.static(uploadDir));
+// Configure routes
 app.use('/api/articles', articleRoutes);
 app.use('/api/admin', adminRoutes);
 
