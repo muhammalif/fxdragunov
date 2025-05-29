@@ -1,4 +1,5 @@
 const express = require('express');
+console.log('Admin routes file loaded');
 const rateLimit = require('express-rate-limit')
 const { login } = require('../controllers/adminController');
 
