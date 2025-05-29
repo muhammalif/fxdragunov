@@ -39,6 +39,16 @@ app.use(express.json());
 app.use('/api/articles', articleRoutes);
 app.use('/api/admin', adminRoutes);
 
+// Add a root route handler
+app.get('/', (req, res) => {
+  res.status(200).send('Backend API is running!');
+});
+
+// Optional: Add handlers for favicon to prevent timeouts on these requests
+app.get(['/favicon.ico', '/favicon.png'], (req, res) => {
+    res.status(404).send(); // Return 404 for favicon requests
+});
+
 // DB Connect
 if (!mongoose.connection.readyState) {
   mongoose
