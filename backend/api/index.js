@@ -14,7 +14,7 @@ const connectDB = async () => {
       console.log('MongoDB already connected');
       return;
     }
-    await mongoose.connect(process.env.MONGO_URI, {
+    await mongoose.connect(process.env.MONGODB_URI, {
       // Add any necessary Mongoose connection options for serverless here
       // serverSelectionTimeoutMS: 5000, // Example option
     });
