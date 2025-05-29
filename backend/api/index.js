@@ -58,6 +58,13 @@ console.log('Mounting article routes at /api/articles');
 app.use('/api/articles', articleRoutes);
 console.log('Mounting admin routes at /api/admin');
 app.use('/api/admin', authMiddleware, adminRoutes);
+
+// Temporary test route
+app.post('/api/admin/test', (req, res) => {
+  console.log('Test POST route /api/admin/test reached');
+  res.status(200).send('Test route successful');
+});
+
 // Add all your specific API routes here
 app.get('/', (req, res) => {
   res.send('Express app is running!');
